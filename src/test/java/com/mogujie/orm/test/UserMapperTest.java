@@ -54,6 +54,7 @@ public class UserMapperTest {
         where.andCondition(Conditions.notLike("name", "%C"));
         where.closeParenthesis();
         where.orCondition(Conditions.lessThan("id" , 30 , true));
+        where.andCondition(Conditions.greaterThan("id" , 20 , true));
         List<User> users = userMapper._simpleQuery(where);
         System.out.println(users);
     }
