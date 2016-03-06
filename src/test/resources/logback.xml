@@ -1,0 +1,18 @@
+<configuration debug="false" scan="true" scanPeriod="30 seconds">
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%t] %5p \(%F:%L\) %method\(\) - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 打印出sql日志 -->
+	<logger name="com.mogujie.dao.mapper" level="DEBUG" additivity="true">
+		<appender-ref ref="STDOUT"></appender-ref>
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>

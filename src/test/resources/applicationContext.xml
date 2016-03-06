@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://xxxxx"></property>
+        <property name="user" value="xxxxx"></property>
+        <property name="password" value="xxxxx"></property>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="com.mogujie.orm.mybatis.plugin.core.AdvancedSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="ormProperties">
+            <props>
+                <prop key="showlog">true</prop>
+                <prop key="softdelete.column">tag</prop>
+                <prop key="softdelete.value">404</prop>
+                <prop key="softdelete.type">int</prop>
+                <prop key="custom.filters">com.mogujie.dao.filter.AddListAllFilter</prop>
+            </props>
+        </property>
+        <property name="mapperLocations" value="classpath:sqlmap/**/*.xml" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.mogujie.dao.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+</beans>
