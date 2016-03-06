@@ -3,14 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-method="close">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://xxxxx"></property>
-        <property name="user" value="xxxxx"></property>
-        <property name="password" value="xxxxx"></property>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://host/db?useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="username" value="username"/>
+        <property name="password" value="password" />
     </bean>
 
+    <!-- 注意这里不是直接用org.mybatis.spring.SqlSessionFactoryBean
+        而是用com.mogujie.orm.mybatis.plugin.core.AdvancedSqlSessionFactoryBean -->
     <bean id="sqlSessionFactory" class="com.mogujie.orm.mybatis.plugin.core.AdvancedSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="ormProperties">
